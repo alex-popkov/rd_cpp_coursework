@@ -1,0 +1,12 @@
+{
+    "[cpp]": {
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": false
+    },
+    "clangd.arguments": [
+        "--compile-commands-dir=build/debug",
+        "--background-index"
+    ],
+    "C_Cpp.intelliSenseEngine": "disabled"
+}

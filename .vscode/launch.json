@@ -1,0 +1,8 @@
+{
+  // Launch configurations працюють у devcontainer і використовують GDB з image.
+  // Для ДЗ 5 потрібно буде додати окрему конфігурацію за цим прикладом.
+  "version": "0.2.0",
+  "configurations": [
+
+  ]
+}
