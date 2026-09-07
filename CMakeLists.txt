@@ -26,3 +26,5 @@ FetchContent_MakeAvailable(googletest)
 # Вмикає CTest.
 enable_testing()
 
+add_subdirectory(telemetry)
+
