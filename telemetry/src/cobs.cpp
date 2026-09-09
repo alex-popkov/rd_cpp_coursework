@@ -1,12 +1,8 @@
 #include "cobs.hpp"
+#include <iostream>
+#include <iomanip>
 // Алгоритм кодування (псевдо, ~15 рядків реального C++):
 
-// Тримай позицію code_pos у виході, куди пізніше впишеш лічильник; почни лічильник code = 1.
-// Іди по вхідних байтах:
-// байт ≠ 0 → скопіюй його у вихід, code++;
-// байт = 0 → запиши code у code_pos, почни новий блок (новий code_pos, code = 1);
-// якщо code досяг 0xFF (254 ненульових поспіль) → запиши 0xFF, почни новий блок без споживання нуля.
-// Наприкінці запиши останній code у code_pos.
 // Декодування — дзеркальне: читаєш code = n, копіюєш n-1 байтів як є, і якщо n != 0xFF та це не кінець — дописуєш один 0x00. Повторюєш.
 
 namespace telemetry {
@@ -21,14 +17,13 @@ std::size_t cobs_encode(std::span<const std::uint8_t> in, std::span<std::uint8_t
     if (in[i] == 0x00) {
       out[code_pos] = code_when_zero;
       code_pos = out_i;
-      out_i++;
       code_when_zero = 1;
     }
     else {
       out[out_i] = in[i];
-      out_i++;
       code_when_zero++;
     }
+    out_i++;
 
     if (code_when_zero == 0xFF) {
       out[code_pos] = code_when_zero;
@@ -44,7 +39,30 @@ std::size_t cobs_encode(std::span<const std::uint8_t> in, std::span<std::uint8_t
 
 std::optional<std::size_t> cobs_decode(std::span<const std::uint8_t> in, std::span<std::uint8_t> out)
 {
-  return 0;
+  std::size_t out_i = 0;
+  std::size_t index = 0;
+
+  while (index < in.size()) {
+    const std::size_t n = in[index];
+    index++;
+    if (n == 0x00) {
+      return std::nullopt;
+    }
+    for (std::size_t k = 0; k < n - 1; ++k) {
+      if (index >= in.size() || in[index] == 0x00) {
+        return std::nullopt;
+      }
+      out[out_i] = in[index];
+      out_i++;
+      index++;
+    }
+    if (n != 0xFF && index < in.size()) {
+      out[out_i] = 0x00;
+      out_i++;
+    }
+  }
+
+  return out_i;
 }
 
 }  // namespace telemetry
