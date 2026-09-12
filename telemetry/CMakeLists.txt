@@ -3,6 +3,7 @@ add_library(telemetry_core
     src/cobs.cpp
     src/crc16.cpp
     src/state_payload.cpp
+    src/frame.cpp
 )
 
 # PUBLIC include: і сама бібліотека, і всі, хто до неї лінкується,
@@ -14,6 +15,7 @@ add_executable(telemetry_tests
     tests/cobs_test.cpp
     tests/crc16_test.cpp
     tests/state_payload_test.cpp
+    tests/frame_test.cpp
 )
 
 # Лінкуємо ядро + gtest_main (він дає готову функцію main()).
