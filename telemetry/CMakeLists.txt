@@ -22,6 +22,7 @@ add_executable(telemetry_tests
     tests/frame_reader_test.cpp
     tests/seq_gap_test.cpp
     tests/channel_sim_test.cpp
+    tests/integration_test.cpp
 )
 
 # Лінкуємо ядро + gtest_main (він дає готову функцію main()).
