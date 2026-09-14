@@ -26,7 +26,9 @@ struct FrameHeader {
 
 constexpr std::size_t kFrameHeaderSize = 5;  // LEN+CLASS+SEQ+ACK+BITMAP на дроті
 constexpr std::size_t kFrameCrcSize = 2;
-constexpr std::size_t kMaxPayloadSize = 255;  // LEN — один байт
+constexpr std::size_t kMaxPayloadSize = 255;                                                 // LEN — один байт
+constexpr std::size_t kMaxContentSize = kFrameHeaderSize + kMaxPayloadSize + kFrameCrcSize;  // 262
+constexpr std::size_t kMaxWireBlockSize = cobs_encoded_max_size(kMaxContentSize);            // 264
 
 struct ParsedFrame {
   FrameHeader header;
