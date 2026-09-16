@@ -7,6 +7,7 @@ add_library(telemetry_core
     src/frame_reader.cpp
     src/seq_gap.cpp
     src/channel_sim.cpp
+    src/kalman1d.cpp
 )
 
 # PUBLIC include: і сама бібліотека, і всі, хто до неї лінкується,
@@ -23,6 +24,7 @@ add_executable(telemetry_tests
     tests/seq_gap_test.cpp
     tests/channel_sim_test.cpp
     tests/integration_test.cpp
+    tests/kalman1d_test.cpp
 )
 
 # Лінкуємо ядро + gtest_main (він дає готову функцію main()).
