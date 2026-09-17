@@ -9,6 +9,7 @@ add_library(telemetry_core
     src/channel_sim.cpp
     src/kalman1d.cpp
     src/kalman2d.cpp
+    src/state_receiver.cpp
 )
 
 # PUBLIC include: і сама бібліотека, і всі, хто до неї лінкується,
@@ -27,6 +28,7 @@ add_executable(telemetry_tests
     tests/integration_test.cpp
     tests/kalman1d_test.cpp
     tests/kalman2d_test.cpp
+    tests/state_receiver_test.cpp
 )
 
 # Лінкуємо ядро + gtest_main (він дає готову функцію main()).
