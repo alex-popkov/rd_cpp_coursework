@@ -20,10 +20,10 @@ public:
   Estimate1D estimate() const;
 
 private:
-  Vec2 x_{};                        // стан [pos, vel]
+  Vec2 x_{}; // стан [pos, vel]
   Mat2 P_{1e6f, 0.0f, 0.0f, 1e6f};  // коваріація, старт «нічого не знаємо»
-  float sa2_;                       // sigma_a^2
-  Mat2 R_;                          // шум вимірювання (діагональна)
+  float sa2_; // sigma_a^2
+  Mat2 R_; // шум вимірювання (діагональна)
 };
 
 }  // namespace telemetry
