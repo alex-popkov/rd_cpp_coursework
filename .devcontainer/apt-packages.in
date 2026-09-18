@@ -32,3 +32,7 @@ ninja-build
 
 # Віртуальна serial-пара (/tmp/ttyA <-> /tmp/ttyB) — модель радіоканалу для демо.
 socat
+
+# python libs
+python3-matplotlib 
+python3-numpy
