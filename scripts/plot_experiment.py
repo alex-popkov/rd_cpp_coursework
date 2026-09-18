@@ -25,5 +25,6 @@ ax[1].scatter(t, mx, s=10, c='gray', alpha=0.5, label='прийняті x')
 ax[1].legend(); ax[1].set_title('x(t) з коридором ±3σ')
 
 plt.tight_layout()
-plt.savefig('experiment.png', dpi=120)
-print('saved experiment.png')
+out = (sys.argv[1].rsplit('.', 1)[0] + '.png') if len(sys.argv) > 1 else 'experiment.png'
+plt.savefig(out, dpi=120)
+print('saved', out)
