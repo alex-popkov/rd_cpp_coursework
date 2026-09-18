@@ -17,14 +17,16 @@ using namespace telemetry;
 int main()
 {
   // --- параметри ---
-  const int step_count = 400;       // кроків
-  const float dt = 0.05f;           // 20 Гц
-  const float radius = 10.0f;       // радіус кола
-  const float omega = 0.5f;         // кутова швидкість, рад/с
-  const double loss_prob = 0.40;    // 40% втрат
-  const double bitflip_prob = 0.0;  // інверсія бітів (0 = вимкнено)
-  const float noise_pos = 0.20f;    // шум вимірювання позиції
-  const float noise_vel = 0.10f;    // шум вимірювання швидкості
+  const int step_count = 400;         // кроків
+  const float dt = 0.05f;             // 20 Гц
+  const float radius = 10.0f;         // радіус кола
+  const float omega = 0.5f;           // кутова швидкість, рад/с
+  const double loss_prob = 0.40;      // 40% втрат
+  const double bitflip_prob = 0.0;    // інверсія бітів (0 = вимкнено)
+  const float noise_pos = 0.20f;      // шум вимірювання позиції
+  const float noise_vel = 0.10f;      // шум вимірювання швидкості
+  const float blackout_start = 8.0f;  // повний блекаут: початок, с
+  const float blackout_end = 10.0f;   // повний блекаут: кінець, с
 
   Kalman2D filter(/*sigma_a=*/1.0f, noise_pos, noise_vel);
   FrameReader reader;
@@ -56,11 +58,15 @@ int main()
     wire.resize(wire_len);
 
     // канал (перший кадр завжди пропускаємо, щоб фільтр стартував)
+    bool blackout = (time_s >= blackout_start && time_s < blackout_end);
     std::vector<std::uint8_t> channel_out(wire.size());
     std::optional<std::size_t> delivered_len;
     if (step == 0) {
       channel_out = wire;
       delivered_len = wire.size();
+    }
+    else if (blackout) {
+      delivered_len = std::nullopt;  // повний блекаут -> жодного кадру
     }
     else
       delivered_len = channel.transmit(wire, channel_out);
