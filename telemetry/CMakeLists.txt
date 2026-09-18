@@ -43,6 +43,9 @@ target_link_libraries(telemetry_tests
         GTest::gtest_main
 )
 
+add_executable(experiment apps/experiment.cpp)
+target_link_libraries(experiment PRIVATE telemetry_core)
+
 # Реєструє кожен TEST() у CTest окремо, щоб `ctest` бачив їх поіменно.
 include(GoogleTest)
 gtest_discover_tests(telemetry_tests)
