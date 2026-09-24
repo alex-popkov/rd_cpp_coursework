@@ -14,7 +14,7 @@ struct StatePayload {
   bool operator==(const StatePayload&) const = default;
 };
 
-// timestamp(4) + 4×float(4) = 20 байти на дроті.
+// timestamp(4) + 4×float(4) = 20 байтів.
 constexpr std::size_t kStatePayloadSize = sizeof(std::uint32_t) + 4 * sizeof(float);
 
 // Серіалізує payload у out (LE); повертає кількість записаних байтів (== kStatePayloadSize).

@@ -28,6 +28,8 @@ demo: build
 	@echo "== Графіки (потрібен python3 + matplotlib) =="
 	@python3 scripts/plot_experiment.py docs/experiment.csv || echo "  matplotlib недоступний -> дивись docs/experiment.csv"
 	@python3 scripts/plot_rms.py docs/rms.csv || echo "  matplotlib недоступний -> дивись docs/rms.csv"
+	./build/debug/$(MODULE)/realtime > docs/realtime.csv
+	@python3 scripts/plot_realtime.py docs/realtime.csv || echo "  matplotlib недоступний -> дивись docs/realtime.csv"
 	@echo "Готово. Результати у docs/ (experiment.csv/.png, rms.csv/.png)."
 
 quality: format lint test
