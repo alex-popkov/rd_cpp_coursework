@@ -24,8 +24,8 @@ void Kalman1D::predict(float dt)
 
 void Kalman1D::update(float pos_meas, float vel_meas)
 {
-  Vec2 z{pos_meas, vel_meas};
-  Vec2 y = z - x_;                   // інновація
+  Vec2 meas{pos_meas, vel_meas};
+  Vec2 y = meas - x_;                // інновація
   Mat2 S = P_ + R_;                  // бо H = I
   Mat2 K = P_ * inverse(S);          // gain
   x_ = x_ + K * y;                   // корекція

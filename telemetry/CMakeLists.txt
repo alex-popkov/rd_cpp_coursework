@@ -52,6 +52,9 @@ target_link_libraries(rms PRIVATE telemetry_core)
 add_executable(realtime apps/realtime.cpp)
 target_link_libraries(realtime PRIVATE telemetry_core)
 
+add_executable(rx apps/rx.cpp)
+target_link_libraries(rx PRIVATE telemetry_core)
+
 # Реєструє кожен TEST() у CTest окремо, щоб `ctest` бачив їх поіменно.
 include(GoogleTest)
 gtest_discover_tests(telemetry_tests)
